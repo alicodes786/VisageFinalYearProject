@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Cards from "react-credit-cards-2";
 import "react-credit-cards-2/dist/es/styles-compiled.css";
-import "./CreditCardForm.css";
+import "./PaymentCardForm.css";
 
-const CreditCardForm = () => {
+const PaymentCardForm = () => {
   const [state, setState] = useState({
     number: "",
     expiry: "",
@@ -31,7 +31,7 @@ const CreditCardForm = () => {
           headers: {
               'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ card_number: state.number, cvv: state.cvc })
+          body: JSON.stringify({ card_number: state.number, cvv: state.cvc, name: state.name })
       });
       const data = await response.json();
       setState(prevState => ({ 
@@ -142,4 +142,4 @@ const CreditCardForm = () => {
   );
 };
 
-export default CreditCardForm;
+export default PaymentCardForm;

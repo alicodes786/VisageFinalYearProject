@@ -40,6 +40,9 @@ def draw_rectangles(image, face_locations, names, match_found=False):
 
 # Function to verify card details using facial recognition and database data
 def verify(card_number, cvv):
+    # Reset success to True at the beginning of the function
+    success = True
+
     #flag variable for retrieving data from database
     counter = 0 
      #for displaying on the frontend
@@ -47,30 +50,32 @@ def verify(card_number, cvv):
     message = ""
 
     # Starts capturing images from the frame
-    while True:
+    while success:  
         success, img = cam.read()
         
         imgSmall = cv2.resize(img, (0,0), None, 0.25, 0.25)
         imgSmall = cv2.cvtColor(imgSmall, cv2.COLOR_BGR2RGB)
         
+        #face detection process
         faceCurrentFrame = face_recognition.face_locations(img)
         encodeCurrFrame = face_recognition.face_encodings(img, faceCurrentFrame)
 
         names = []
-
+         
+        #comparison happening for recognition
         for encodeFace, faceLoc in zip(encodeCurrFrame, faceCurrentFrame):
             matches = face_recognition.compare_faces(encodeListKnown, encodeFace)
             faceDistance = face_recognition.face_distance(encodeListKnown, encodeFace)
 
             matchIndex = np.argmin(faceDistance)
-            if matches[matchIndex]:
+            if matches[matchIndex]: 
                 match_found=True
                 y1, x2, y2, x1 = faceLoc
                 y1, x2, y2, x1 = y1*4, x2*4, y2*4, x1*4
                 bbox = 55+x1, 162+y1, x2-x1, y2-y1
                 img = cvzone.cornerRect(img, bbox, rt=0)
                 id = ownerIds[matchIndex]
-                if counter == 0:
+                if counter == 0: 
                     counter = 1
 
                 ownerInfo = db.reference(f'Accounts/{id}').get()
@@ -88,7 +93,7 @@ def verify(card_number, cvv):
                     
                     if cvv == str(ownerInfo['cvv']):
                         print("CVV Verified")
-                        verification_result = True
+                        verification_result = True 
                         print(cvv)
                     else:
                         print("CVV Not Verified")
@@ -105,19 +110,20 @@ def verify(card_number, cvv):
             
         cv2.imshow('Facial ID Verification', img)
         if cv2.waitKey(1) == ord('q'):
-            break  # Wait for 1 millisecond
+            success = False   
             
     cam.release()
     cv2.destroyAllWindows()     
     print("After verification",success)
     return verification_result, message
-    
 
+    
 @app.route('/receive_card_details', methods=['POST'])
 def receive_card_details():
     data = request.json
     card_number = data.get('card_number')
     cvv = data.get('cvv') 
+    print("this was called now")
     try:
         # Call the verify function
         verification_result, message = verify(card_number, cvv)

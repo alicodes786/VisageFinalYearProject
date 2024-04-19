@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import CreditCardForm from "./CreditCardForm";
+import CreditCardForm from "./PaymentCardForm";
 
 function App() {
   return (
