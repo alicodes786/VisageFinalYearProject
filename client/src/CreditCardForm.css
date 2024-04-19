@@ -1,0 +1,33 @@
+
+
+h5{
+    color: black
+}
+
+.form-control{
+    padding: 10px
+}
+
+.custom-heading {
+    font-family: 'Arial', sans-serif; 
+    font-size: 18px; 
+    font-weight: bold; 
+}
+
+/* CreditCardForm.css */
+.custom-form hr {
+    border-color: #4d4b4b;
+    margin-bottom: 10px; 
+}
+  
+  .custom-form .btn-close {
+    border-radius: 50%; /* Make the close button circular */
+    border: 1px solid #000000; /* Add border around the close button */
+}
+
+.verification-message{
+    border-radius :20px;
+    padding:2px;
+}
+  
+  

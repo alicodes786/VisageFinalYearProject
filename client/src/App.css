@@ -7,6 +7,32 @@
   pointer-events: none;
 }
 
+.custom-form {
+  border-radius: 20px; 
+}
+
+
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #f4f4f4; /* Adjust the hex value to your desired shade of gray */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.heading-text {
+  color: #ffffff; 
+  font-weight: bold; 
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Text shadow for better visibility */
+}
+
+.bg-gradient {
+  background: linear-gradient(to right, #5D3FD3, #000000); /* Adjust gradient colors as desired */
+}
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
